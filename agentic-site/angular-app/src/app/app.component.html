@@ -1,0 +1,81 @@
+<main class="planner">
+  <header class="planner__header">
+    <div>
+      <p class="eyebrow">Avery Collins · Focus Planner</p>
+      <h1>Weekly momentum cockpit</h1>
+      <p class="lede">
+        Calibrate how much energy each stream receives across React and Angular domains. Toggle the
+        mentoring and freelance streams to see how the plan flexes with priorities.
+      </p>
+    </div>
+    <div class="toggles">
+      <button
+        type="button"
+        class="toggle"
+        [class.toggle--active]="includeMentoring()"
+        (click)="toggleMentoring()"
+      >
+        <span>Mentoring cadence</span>
+        <span class="pill">{{ includeMentoring() ? 'On' : 'Paused' }}</span>
+      </button>
+      <button
+        type="button"
+        class="toggle"
+        [class.toggle--active]="includeFreelance()"
+        (click)="toggleFreelance()"
+      >
+        <span>Freelance discovery</span>
+        <span class="pill">{{ includeFreelance() ? 'On' : 'Paused' }}</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="plan">
+    <div class="plan__summary">
+      <p class="plan__hours">{{ totalHours() }} hrs</p>
+      <p class="plan__label">total planned this week</p>
+      <p class="plan__note">
+        Hours blend React feature velocity with Angular enablement work. Once toggles change, the
+        system reshapes the plan.
+      </p>
+    </div>
+
+    <div class="plan__grid">
+      <article
+        class="plan__card"
+        *ngFor="let mode of weeklyPlan()"
+        [class.plan__card--build]="mode.theme === 'build'"
+        [class.plan__card--refine]="mode.theme === 'refine'"
+        [class.plan__card--mentor]="mode.theme === 'mentor'"
+      >
+        <div class="plan__card-header">
+          <h3>{{ mode.title }}</h3>
+          <span class="badge">{{ mode.hours }} hrs</span>
+        </div>
+        <p class="plan__card-description">{{ mode.description }}</p>
+        <ul class="plan__card-tags">
+          <li *ngFor="let tag of mode.tags">{{ tag }}</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="momentum">
+    <header>
+      <h2>Momentum signals</h2>
+      <p>
+        Track the trends that demonstrate healthy delivery: design quality, accessibility, and
+        performance across frameworks.
+      </p>
+    </header>
+    <div class="momentum__grid">
+      <article class="momentum__card" *ngFor="let signal of momentumSignals">
+        <p class="momentum__score">
+          {{ signal.score }}<span>{{ signal.unit }}</span>
+        </p>
+        <p class="momentum__label">{{ signal.label }}</p>
+        <p class="momentum__description">{{ signal.description }}</p>
+      </article>
+    </div>
+  </section>
+</main>
